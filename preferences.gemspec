@@ -5,7 +5,7 @@ require 'pp'
 spec = Gem::Specification.new do |s|
   
   s.name     = "preferences"
-  s.version  = "0.0.1"
+  s.version  = "0.0.2"
   s.summary  = "An easy, cross-platform way to manage application configuration data"
   s.homepage = "http://peervoice.com/software/ruby/preferences"
 
