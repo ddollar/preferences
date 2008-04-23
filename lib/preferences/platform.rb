@@ -1,6 +1,24 @@
 module Preferences
   class Platform
-    def Platform.config_directory
+
+    def Platform.config_directory_global
+      case RUBY_PLATFORM
+      when /win32/
+        raise EnvironmentException, "Don't yet know how to get a global Windows preferences directory"
+
+      else
+        dir = '/etc'
+        
+      end
+
+      unless dir
+        raise EnvironmentException, "Can't determine a preferences directory."
+      end
+      
+      dir
+    end
+
+    def Platform.config_directory_user
       case RUBY_PLATFORM
       when /win32/
         dir = 
@@ -20,5 +38,6 @@ module Preferences
       
       dir
     end
+
   end
 end

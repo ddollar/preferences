@@ -5,9 +5,13 @@ module Preferences
     
     attr_accessor :filename
     
-    def initialize(config_name, directory=nil)
-      directory ||= Platform::config_directory
-      @filename = File.join(directory, ".#{config_name}")
+    def initialize(config_name, global=false)
+      directory = global ? Platform::config_directory_global :
+                           Platform::config_directory_user
+                           
+      config_file = global ? "#{config_name}.conf" : ".#{config_name}"
+                           
+      @filename = File.join(directory, config_file)
       if File.exists?(@filename)
         File.open(@filename, "r") do |file|
           self.merge!(YAML.load(file))
