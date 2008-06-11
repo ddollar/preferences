@@ -1,5 +1,22 @@
+require 'rubygems'
 require 'erb'
 require 'yaml'
+
+namespace :gem do
+  
+  desc "Build the gem"
+  task :build => [ 'gemspec:build' ] do
+    spec = nil
+    File.open('preferences.gemspec', 'r') do |gemspec|
+      eval gemspec.read
+    end
+    Gem::manage_gems
+    gemfile = Gem::Builder.new(spec).build
+    Dir.mkdir('pkg') unless File.exists?('pkg')
+    File.rename(gemfile, "pkg/#{gemfile}")
+  end
+
+end
 
 namespace :gemspec do
 

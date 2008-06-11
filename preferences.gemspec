@@ -12,8 +12,8 @@ spec = Gem::Specification.new do |s|
   s.files    = ["lib/preferences","lib/preferences/manager.rb","lib/preferences/platform.rb","lib/preferences.rb","test/preferences.rb"]
   s.platform = Gem::Platform::RUBY
                    
+  s.rubyforge_project = "preferences"
   s.require_path      = "lib"
-  s.autorequire       = s.name
   s.has_rdoc          = true
   s.extra_rdoc_files  = ["README"]
   
