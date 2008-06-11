@@ -5,11 +5,15 @@ module Preferences
     
     attr_accessor :filename
     
-    def initialize(config_name, global=false)
-      directory = global ? Platform::config_directory_global :
+    def initialize(config_name, settings={})
+      
+      @global   = settings[:global] || false
+      @autosave = settings[:autosave] || false
+      
+      directory = @global ? Platform::config_directory_global :
                            Platform::config_directory_user
                            
-      config_file = global ? "#{config_name}.conf" : ".#{config_name}"
+      config_file = @global ? "#{config_name}.conf" : ".#{config_name}"
                            
       @filename = File.join(directory, config_file)
       if File.exists?(@filename)
@@ -23,6 +27,13 @@ module Preferences
       File.open(@filename, "w") do |file|
         YAML.dump(self, file)
       end
+    end
+    
+    alias_method :default_writer, :[]=
+    
+    def []=(key, value)
+      default_writer(key, value)
+      save if @autosave
     end
     
   end
