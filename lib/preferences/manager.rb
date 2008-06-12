@@ -5,17 +5,25 @@ module Preferences
     
     attr_accessor :filename
     
-    def initialize(config_name, settings={})
+    def initialize(name, settings={})
       
-      @global   = settings[:global] || false
+      @type     = settings[:type]     || :user
       @autosave = settings[:autosave] || false
       
-      directory = @global ? Platform::config_directory_global :
-                           Platform::config_directory_user
-                           
-      config_file = @global ? "#{config_name}.conf" : ".#{config_name}"
-                           
-      @filename = File.join(directory, config_file)
+      directory = case @type
+        when :system then Platform::config_directory_system
+        when :user   then Platform::config_directory_user
+        when :test   then Platform::config_directory_test
+      end
+      
+      file = case @type
+        when :system then "#{name}.conf"
+        when :user   then ".#{name}"
+        when :test   then "#{name}.preferences.test"
+      end
+      
+      @filename = File.join(directory, file)
+      
       if File.exists?(@filename)
         File.open(@filename, "r") do |file|
           self.merge!(YAML.load(file))
