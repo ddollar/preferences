@@ -1,7 +1,39 @@
 require 'rubygems'
 require 'erb'
 require 'yaml'
+require 'rake'
+require 'rake/rdoctask'
+require 'spec/rake/spectask'
+require 'spec/rake/verify_rcov'
 
+task :default => [ 'rspec:run' ]
+
+namespace :rspec do
+  
+  desc "Run rspec tasks"
+  Spec::Rake::SpecTask.new(:run) do |t|
+    t.spec_files = FileList['spec/**/*_spec.rb']
+    #t.spec_opts = ['--options', 'spec/spec.opts']
+    unless ENV['NO_RCOV']
+      t.rcov = true
+      t.rcov_dir = 'doc/output/coverage'
+      t.rcov_opts = ['--exclude', 'bin\/rtr,examples,\/var\/lib\/gems,\/Library\/Ruby,\.autotest']
+    end
+  end
+  
+  desc "Show code coverage"
+  task :coverage => [ :run ] do
+    system %{open doc/output/coverage/index.html}
+  end
+  
+  desc "Verify code coverage"
+  RCov::VerifyTask.new(:verify => :run) do |t|
+    t.threshold = 100.0 # Make sure you have rcov 0.7 or higher!
+    t.index_html = 'doc/output/coverage/index.html'
+  end
+  
+end
+    
 namespace :gem do
   
   desc "Build the gem"
