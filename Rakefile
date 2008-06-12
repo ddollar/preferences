@@ -44,7 +44,7 @@ namespace :rspec do
   
   desc "Verify code coverage"
   RCov::VerifyTask.new(:verify => :run) do |t|
-    t.threshold = 100.0 # Make sure you have rcov 0.7 or higher!
+    t.threshold = 100.0
     t.index_html = 'doc/output/coverage/index.html'
   end
   
