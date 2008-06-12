@@ -1,7 +1,7 @@
 config = OpenStruct.new
 
 config.name     = "preferences"
-config.version  = "0.1.1"
+config.version  = "0.1.2"
 config.summary  = "An easy, cross-platform way to manage application configuration data"
 config.homepage = "http://peervoice.com/software/ruby/preferences"
 
