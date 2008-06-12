@@ -8,6 +8,22 @@ require 'spec/rake/verify_rcov'
 
 task :default => [ 'rspec:run' ]
 
+namespace :rdoc do
+  
+  desc 'Generate RDoc'
+  rd = Rake::RDocTask.new(:build) do |rdoc|
+    rdoc.rdoc_dir = 'doc/output/rdoc'
+    rdoc.options << '--title' << 'Preferences' << '--line-numbers' << '--inline-source' << '--main' << 'README'
+    rdoc.rdoc_files.include('README', 'lib/**/*.rb')
+  end
+  
+  desc 'View RDoc'
+  task :view => [ :build ] do
+    system %{open doc/output/rdoc/index.html}
+  end
+  
+end
+
 namespace :rspec do
   
   desc "Run rspec tasks"
