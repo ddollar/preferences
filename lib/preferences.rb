@@ -7,7 +7,7 @@ module Preferences
   class EnvironmentException < Exception; end
   
   # :stopdoc:
-  VERSION = '0.1.3'
+  VERSION = '0.1.4'
   LIBPATH = File.expand_path(File.dirname(__FILE__)) + File::SEPARATOR
   PATH = File.dirname(LIBPATH) + File::SEPARATOR
   # :startdoc:
