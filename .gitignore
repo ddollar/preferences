@@ -1,2 +1,5 @@
-doc/output
+*.gemspec
+doc/coverage
+doc/rdoc
+output
 pkg

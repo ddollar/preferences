@@ -1,9 +1,10 @@
-config = OpenStruct.new
+@config.name     = "generic"
 
-config.name     = "preferences"
-config.version  = "0.1.2"
-config.summary  = "An easy, cross-platform way to manage application configuration data"
-config.homepage = "http://peervoice.com/software/ruby/preferences"
+require "lib/#{@config.name}"
 
-config.author_name  = "David Dollar"
-config.author_email = "ddollar@gmail.com"
+@config.version  = Generic.version
+@config.summary  = "Summary Here"
+@config.homepage = "http://peervoice.com/software/#{@config.name}"
+
+@config.author_name  = "David Dollar"
+@config.author_email = "ddollar@gmail.com"
