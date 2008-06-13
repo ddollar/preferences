@@ -4,6 +4,8 @@ unless defined? Preferences
 
 module Preferences
 
+  class EnvironmentException < Exception; end
+  
   # :stopdoc:
   VERSION = '0.1.3'
   LIBPATH = File.expand_path(File.dirname(__FILE__)) + File::SEPARATOR
